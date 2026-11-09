@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A2Z Media Group | Ibrahim Hassan</title>
+<meta name="description" content="Ibrahim Hassan, Data Analyst at A2Z Media Group: live campaign dashboards, AI tools built with Claude, and ROAS-focused optimisation across the GCC.">
+<meta property="og:title" content="Ibrahim Hassan | Data Analyst at A2Z Media Group">
+<meta property="og:description" content="Live campaign dashboards, AI pacing checks and end-of-campaign summaries built with Claude, across 44 brands in 5 markets.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f1317'/%3E%3Crect x='14' y='34' width='8' height='16' rx='2' fill='%236fb3f2'/%3E%3Crect x='28' y='24' width='8' height='26' rx='2' fill='%236fb3f2'/%3E%3Crect x='42' y='14' width='8' height='36' rx='2' fill='%233ccf91'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.wrap.wide{max-width:1100px}
+/* brand strip */
+.marquee{position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin:8px 0 14px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.track{display:flex;gap:12px;width:max-content;animation:scroll 90s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.track span{white-space:nowrap;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 16px;font:500 .9rem Inter,system-ui,sans-serif;color:var(--ink)}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.track{animation-duration:400s}}
+.regions{display:flex;flex-wrap:wrap;gap:8px;font:600 .82rem Inter,system-ui,sans-serif}
+.regions span{background:var(--chip);color:var(--accent);border-radius:6px;padding:5px 11px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:18px}
+.stats div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.stats b{display:block;font-size:1.6rem;color:var(--accent);font-family:Inter,system-ui,sans-serif}
+.stats small{color:var(--muted)}
+/* process */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;counter-reset:s}
+.steps div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;counter-increment:s}
+.steps div::before{content:counter(s);display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#0f1317;font:700 .85rem Inter,system-ui,sans-serif;margin-bottom:8px}
+.steps b{display:block;margin-bottom:4px}
+.steps p{margin:0;color:var(--muted);font-size:.92rem}
+/* dashboard */
+.dash{background:#0b0f13;border:1px solid var(--line);border-radius:14px;overflow:hidden;font-family:Inter,system-ui,sans-serif;font-size:.9rem}
+.dbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--card)}
+.dbar h3{margin:0;font-size:1rem;letter-spacing:.5px;margin-right:auto}
+.live{display:inline-flex;align-items:center;gap:6px;color:#3ccf91;font-weight:600;font-size:.8rem}
+.live i{width:8px;height:8px;border-radius:50%;background:#3ccf91;animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(60,207,145,.6)}100%{box-shadow:0 0 0 8px rgba(60,207,145,0)}}
+.demo{color:var(--muted);font-size:.78rem}
+.dbody{display:grid;grid-template-columns:200px 1fr}
+.side{border-right:1px solid var(--line);padding:14px;display:flex;flex-direction:column;gap:16px;background:var(--card)}
+.side h4{margin:0 0 6px;font-size:.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.side label{display:flex;align-items:center;gap:8px;padding:3px 0;cursor:pointer}
+.side select{width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px}
+.sw{width:10px;height:10px;border-radius:2px;display:inline-block}
+.main{padding:14px;min-width:0}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:14px}
+.tabs button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:6px 12px;cursor:pointer;font:inherit}
+.tabs button.on{background:var(--accent);color:#0f1317;border-color:var(--accent);font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}
+.kpi small{color:var(--muted);display:block}
+.kpi b{font-size:1.35rem;display:block;margin:2px 0}
+.bar{height:5px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--accent)}
+.kpi em{font-style:normal;font-size:.75rem;color:var(--muted)}
+.good{color:#3ccf91!important}.bad{color:#ff7a7a!important}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;min-width:0}
+.panel h5{margin:0 0 8px;font-size:.85rem;color:var(--muted);font-weight:600}
+.cv{position:relative;height:240px}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font-weight:600}
+td.n,th.n{text-align:right}
+.tw{overflow-x:auto}
+.summary p{margin:0 0 10px;line-height:1.6}
+.summary ul{margin:0 0 10px;padding-left:20px;line-height:1.7}
+.hide{display:none}
+.sim{display:grid;grid-template-columns:1fr 1.2fr;gap:18px;font-family:Inter,system-ui,sans-serif}
+.sliders{display:flex;flex-direction:column;gap:14px}
+.sl{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px}
+.sl .top{display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:6px}
+.sl input{width:100%;accent-color:var(--accent)}
+.sl small{color:var(--muted);font-size:.78rem}
+.btn{background:var(--accent);color:#0f1317;border:0;border-radius:8px;padding:8px 14px;font:600 .88rem Inter,system-ui,sans-serif;cursor:pointer}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
+.simnote{font-size:.88rem;color:var(--muted);min-height:1.2em;margin:0 0 8px}
+.sel{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px}
+@media (max-width:820px){.sim{grid-template-columns:1fr}}
+
+.goal{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.goal .lead{font-size:1.05rem;margin:0 0 16px}
+.gcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.gcards div{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--bg)}
+.gcards small{display:block;font:700 .72rem Inter,system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.gcards b{display:block;font-family:Inter,system-ui,sans-serif;color:var(--accent);margin-bottom:4px}
+.gcards div.star{border-color:rgba(60,207,145,.5);background:rgba(60,207,145,.06)}
+.gcards div.star b{color:#3ccf91}
+.roas{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin:16px 0;padding:14px 16px;border-left:3px solid #3ccf91;background:var(--bg);border-radius:6px}
+.roas .f{font:600 1.05rem ui-monospace,Consolas,monospace;color:#3ccf91}
+.roas p{margin:0;flex:1 1 260px}
+.howto{margin:6px 0 0;padding-left:20px}
+.howto li{margin-bottom:6px}
+
+.ptitle{font-size:1.25rem;margin:8px 0 10px;color:var(--ink)}
+/* AI pacing section */
+.ai{background:linear-gradient(135deg,rgba(111,179,242,.08),rgba(60,207,145,.06));border:1px solid var(--line);border-radius:14px;padding:22px}
+.ai .badge{display:inline-block;font:600 .75rem Inter,system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase;color:#3ccf91;border:1px solid rgba(60,207,145,.4);border-radius:999px;padding:3px 10px;margin-bottom:10px}
+.ai h3{margin:0 0 8px;font-size:1.3rem}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0}
+.flow div{flex:1 1 140px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:.9rem;position:relative}
+.flow b{display:block;font-family:Inter,system-ui,sans-serif;font-size:.85rem;color:var(--accent);margin-bottom:4px}
+.flow div small{color:var(--muted);display:block;line-height:1.45}
+.rule{background:var(--card);border-left:3px solid var(--accent);border-radius:6px;padding:12px 16px;margin:14px 0;font-size:.95rem}
+.rule code{font-family:ui-monospace,Consolas,monospace;font-size:.88rem;color:var(--accent)}
+.email{background:#f4f5f7;color:#1d2329;border-radius:10px;overflow:hidden;font:14px/1.5 Inter,system-ui,sans-serif;margin-top:16px}
+.email .eh{background:#e6e9ee;padding:10px 14px;font-size:.82rem;color:#4a535d}
+.email .eh b{color:#1d2329}
+.email .eb{padding:14px}
+.email p{margin:0 0 10px}
+.email table{font-size:.8rem;margin-bottom:12px;background:#fff}
+.email th,.email td{border:1px solid #dfe3e8;padding:6px 8px;color:#1d2329}
+.email th{background:#eef1f5;color:#4a535d}
+.st{font-weight:700;font-size:.75rem;padding:2px 7px;border-radius:4px}
+.st.b{background:#fde2e2;color:#b42318}.st.o{background:#dcfae6;color:#067647}
+.impact{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px}
+.impact div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:.93rem}
+.impact b{display:block;margin-bottom:4px}
+
+@media (max-width:820px){.kpis{grid-template-columns:1fr 1fr}.dbody{grid-template-columns:1fr}.side{border-right:0;border-bottom:1px solid var(--line);flex-direction:row;flex-wrap:wrap}.side>div{flex:1 1 140px}.grid2,.grid3{grid-template-columns:1fr}}
+
+/* ---- v2 layout ---- */
+html{scroll-behavior:smooth}
+section,[data-pp]{scroll-margin-top:70px}
+.hero{padding:20px 0 30px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.eyebrow{font-size:.85rem;color:var(--muted);margin:0 0 10px;letter-spacing:.3px}
+.hero h1{font-size:clamp(1.8rem,4.2vw,2.8rem);line-height:1.15;margin:0 0 14px;max-width:820px;letter-spacing:-.5px}
+.hero h1 span{color:var(--accent)}
+.hero .sub{font-size:1.08rem;color:var(--muted);max-width:760px;margin:0 0 22px;line-height:1.6}
+.hstats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.hstats div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.hstats b{display:block;font-size:1.7rem;font-weight:800;color:var(--ink);letter-spacing:-.5px}
+.hstats small{color:var(--muted);font-size:.85rem}
+.ctas{display:flex;flex-wrap:wrap;gap:10px}
+.ctas a{text-decoration:none}
+.subnav{position:sticky;top:0;z-index:5;background:rgba(15,19,23,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:10px 0;margin-bottom:10px}
+.subnav a{color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:500;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.subnav a:hover,.subnav a.on{color:var(--ink);background:var(--card)}
+.sectlead{color:var(--muted);margin:-6px 0 16px}
+.pcards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.pcard{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;color:var(--ink);font:inherit;transition:border-color .2s}
+.pcard:hover{border-color:var(--muted)}
+.pcard.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.pcard .badge{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#3ccf91;border:1px solid rgba(60,207,145,.4);border-radius:999px;padding:2px 9px;margin-bottom:8px}
+.pcard h3{margin:0 0 10px;font-size:1.15rem}
+.pcard dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 10px;font-size:.9rem}
+.pcard dt{color:var(--muted);font-weight:600}
+.pcard dd{margin:0}
+.pcard .more{display:block;margin-top:12px;color:var(--accent);font-size:.85rem;font-weight:600}
+.mtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.mtabs button{background:var(--card);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:8px 16px;cursor:pointer;font:600 .9rem Inter,Inter,system-ui,sans-serif}
+.mtabs button.on{background:var(--accent);color:#0f1317;border-color:var(--accent)}
+.cta{background:linear-gradient(135deg,rgba(111,179,242,.12),rgba(60,207,145,.08));border:1px solid var(--line);border-radius:16px;padding:28px;text-align:center;margin-top:40px}
+.cta h2{border:0;margin:0 0 8px;padding:0;text-transform:none;letter-spacing:0;font-size:1.5rem}
+.cta p{color:var(--muted);margin:0 0 18px}
+.cta .ctas{justify-content:center}
+.ptitle{font-size:1.25rem;margin:8px 0 10px;color:var(--ink)}
+@media (max-width:820px){.hstats{grid-template-columns:1fr 1fr}.pcards{grid-template-columns:1fr}}
+
+.human{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;background:var(--card);border:1px solid var(--accent);border-radius:16px;padding:22px;margin:0 0 18px}
+.human h3{margin:0 0 10px;font-size:1.3rem}
+.human p{margin:0 0 10px;line-height:1.65}
+.human ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.human li{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.92rem}
+.human li b{display:block;color:var(--accent);font-size:.85rem;margin-bottom:2px}
+.human .sign{color:var(--muted);font-size:.9rem;margin:0}
+@media (max-width:820px){.human{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap wide">
+<nav>
+  <a href="index.html">Home</a>
+  <div class="dropdown" id="dd">
+    <button aria-haspopup="true" onclick="document.getElementById('dd').classList.toggle('open')">Experience &#9662;</button>
+    <div class="menu">
+      <a href="a2z.html">A2Z Media Group<span>Data Analyst · 2024 – Present</span></a>
+      <a href="almosafer.html">Almosafer (Seera Group)<span>Data Analyst · 2022 – 2024</span></a>
+      <a href="nbe.html">National Bank of Egypt<span>Customer Service Agent · 2021 – 2022</span></a>
+    </div>
+  </div>
+  <a href="index.html#work">Projects</a>
+  <a href="index.html#skills">Skills</a>
+  <a href="mailto:hassanibrahem901@gmail.com">Contact</a>
+</nav>
+
+<header class="hero">
+  <p class="eyebrow">A2Z Media Group (Qatar) · Data Analyst · Jun 2024 – Present · Remote from Cairo</p>
+  <h1>I help digital campaigns <span>hit their targets</span> and grow ROAS across the GCC.</h1>
+  <p class="sub">I turn Meta, TikTok, Snapchat and Google data into live dashboards, catch underperformance early with AI tools I built with Claude, and give clients clear recommendations on where the budget should go next.</p>
+  <div class="hstats">
+    <div><b>44</b><small>brands reported on</small></div>
+    <div><b>5 + GCC</b><small>markets: KSA, UAE, Qatar, Oman, Nigeria</small></div>
+    <div><b>2</b><small>AI tools built with Claude</small></div>
+    <div><b>~6 hrs</b><small>saved weekly through automation</small></div>
+  </div>
+  <div class="ctas">
+    <a class="btn" href="#dashboard">See the live dashboard</a>
+    <a class="btn ghost" href="#projects">View AI projects</a>
+    <a class="btn ghost" href="cv.pdf" download>Download CV</a>
+  </div>
+</header>
+
+<div class="subnav" id="subnav">
+  <a href="#brands">Brands</a><a href="#role">Role and goal</a><a href="#dashboard">Live dashboard</a><a href="#projects">AI projects</a><a href="#methods">Methods</a><a href="#contact">Contact</a>
+</div>
+
+<section id="brands">
+  <h2>Brands I Worked With</h2>
+    <div class="marquee" aria-label="Client brands">
+    <div class="track" id="track"></div>
+  </div>
+  <div class="regions">
+    <span>Saudi Arabia</span><span>United Arab Emirates</span><span>Qatar</span><span>Oman</span><span>Nigeria</span><span>GCC-wide campaigns</span>
+  </div>
+</section>
+
+<section id="role">
+  <h2>My Role and Goal</h2>
+  <p>I own the data and reporting for multi-market digital campaigns. I build the live dashboards, explain the results to clients in weekly reviews, and recommend where the budget should go next.</p>
+    <ul class="tools"><li>Looker Studio</li><li>Power BI</li><li>BigQuery</li><li>SQL</li><li>Google Sheets</li><li>Power Automate</li><li>Claude (AI)</li><li>Python</li></ul>
+  <div style="height:16px"></div>
+    <div class="goal">
+    <p class="lead">My goal is simple: make sure every campaign <b>achieves the targets in its media plan</b>, on budget and on time. When the objective is purchases, my focus is to get the <b>highest possible ROAS</b>, so the client earns more revenue for every dollar spent.</p>
+    <div class="gcards">
+      <div><small>Awareness</small><b>Reach and impressions</b>Deliver the planned reach at or below the planned CPM.</div>
+      <div><small>Traffic</small><b>Clicks and quality visits</b>Hit the click target at or below the planned CPC, with a healthy CTR.</div>
+      <div><small>Leads and messages</small><b>Leads at the right cost</b>Reach the lead target while keeping cost per lead within plan.</div>
+      <div class="star"><small>Purchases</small><b>Purchases and high ROAS</b>Grow sales and revenue while keeping cost per purchase low.</div>
+    </div>
+    <div class="roas">
+      <span class="f">ROAS = Revenue ÷ Ad spend</span>
+      <p>A ROAS of 4.0x means the campaign brought <b>$4 in revenue for every $1</b> spent on ads.</p>
+    </div>
+  </div>
+  <h3 class="ptitle" style="margin-top:22px">How I work with clients</h3>
+    <div class="steps">
+    <div><b>Media plan</b><p>Take the planned budget and KPI targets for each platform and objective.</p></div>
+    <div><b>Data pipeline</b><p>Pull platform data into BigQuery and clean it with SQL.</p></div>
+    <div><b>Live dashboard</b><p>Build a Looker Studio report with filters, targets and cost metrics.</p></div>
+    <div><b>Client review</b><p>Walk the client through results vs target and what is driving them.</p></div>
+    <div><b>Optimise</b><p>Recommend budget shifts and creative changes, then track the impact.</p></div>
+  </div>
+</section>
+
+<!-- REAL RESULTS: send Claude 2-3 real, rounded results (no client names) and this section will be added here.
+<section id="results">
+  <h2>Real Results</h2>
+  e.g. "Shifted budget from Snapchat to TikTok mid-campaign: CPC fell 35% and clicks reached 240% of target."
+</section>
+-->
+
+<section id="dashboard">
+  <h2>Example of My Daily Work</h2>
+  <h3 class="ptitle">Live Campaign Performance Dashboard</h3>
+    <p>Building live dashboards like this and walking clients through them is a core part of my role at A2Z. Below is a working example of the kind of dashboard I build and present. All numbers are randomly generated demo data and are not linked to any real client. Try the filters, the KPI selector and the tabs.</p>
+
+  <div class="dash">
+    <div class="dbar">
+      <h3>CAMPAIGN PERFORMANCE REPORT</h3>
+      <span class="demo">Demo data · updates every few seconds</span>
+      <span class="live"><i></i>LIVE</span>
+    </div>
+    <div class="dbody">
+      <aside class="side">
+        <div><h4>Date range</h4>
+          <select id="fRange"><option value="7">Last 7 days</option><option value="14">Last 14 days</option><option value="30" selected>Last 30 days</option></select></div>
+        <div><h4>Platform</h4><div id="fPlat"></div></div>
+        <div><h4>Objective</h4><div id="fObj"></div></div>
+        <div><h4>KPI selector</h4>
+          <select id="fKpi"><option value="impr">Impressions</option><option value="reach">Reach</option><option value="clicks" selected>Clicks</option><option value="leads">Leads</option><option value="purch">Purchases</option></select></div>
+        <div><h4>Cost per metric</h4>
+          <select id="fCost"><option value="cpm">CPM</option><option value="cpc" selected>CPC</option><option value="cpl">Cost per Lead</option><option value="cpa">Cost per Purchase</option></select></div>
+      </aside>
+      <div class="main">
+        <div class="tabs" id="tabs">
+          <button class="on" data-t="ov">Overview</button>
+          <button data-t="bd">Breakdown</button>
+          <button data-t="au">Audience</button>
+          <button data-t="sm">Summary</button>
+        </div>
+        <div class="kpis" id="kpis"></div>
+
+        <div data-p="ov">
+          <div class="grid2">
+            <div class="panel"><h5 id="trendTitle">Trend</h5><div class="cv"><canvas id="cTrend"></canvas></div></div>
+            <div class="panel"><h5>Spend by platform</h5><div class="cv"><canvas id="cSpend"></canvas></div></div>
+          </div>
+        </div>
+
+        <div data-p="bd" class="hide">
+          <div class="panel" style="margin-bottom:12px"><h5 id="tblTitle">Campaign performance</h5><div class="tw"><table id="tbl"></table></div></div>
+          <div class="grid2">
+            <div class="panel"><h5 id="platTitle">By platform</h5><div class="cv"><canvas id="cPlat"></canvas></div></div>
+            <div class="panel"><h5 id="fmtTitle">By ad format</h5><div class="cv"><canvas id="cFmt"></canvas></div></div>
+          </div>
+        </div>
+
+        <div data-p="au" class="hide">
+          <div class="grid3">
+            <div class="panel"><h5 id="ageTitle">By age</h5><div class="cv"><canvas id="cAge"></canvas></div></div>
+            <div class="panel"><h5 id="genTitle">By gender</h5><div class="cv"><canvas id="cGen"></canvas></div></div>
+            <div class="panel"><h5 id="regTitle">By city</h5><div class="cv"><canvas id="cReg"></canvas></div></div>
+          </div>
+        </div>
+
+        <div data-p="sm" class="hide">
+          <div class="panel summary" id="summary"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <h2>AI Projects Built with Claude</h2>
+  <p class="sectlead">Two Claude skills I built to monitor campaigns every day and to close them with a clear summary. Click a card to see how it works.</p>
+  <div class="human">
+    <div>
+      <h3>The AI does the routine work. I make it right.</h3>
+      <p>I built these tools myself, and they only work because of the campaign knowledge behind them. Claude can read a report and send an email, but it does not know which metric matters for each objective, what "behind plan" really means, or which numbers a client will question. I decided all of that and turned it into clear rules.</p>
+      <p>Building them was the easy part. Most of my effort goes into making sure they are accurate: I tested them on real campaigns, compared every result with the report and the media plan, and fixed the logic each time something did not match. I still review the output before anything reaches the team or a client.</p>
+      <p class="sign">Automation saves time. My job is to make sure the numbers are right.</p>
+    </div>
+    <ul>
+      <li><b>I designed the logic</b>Which KPI belongs to each objective, the 5-point pacing rule, and ranking platforms by real cost per result.</li>
+      <li><b>I tested it against real reports</b>I ran it side by side with my manual checks until the results matched.</li>
+      <li><b>I check every output</b>Totals, cost per metric and best or weakest platform are verified before they are shared.</li>
+      <li><b>I own the recommendation</b>The AI flags the problem. I explain why it happened and agree the fix with the strategy and performance teams.</li>
+    </ul>
+  </div>
+  <div class="pcards" id="pcards">
+    <button class="pcard on" data-p="pj1">
+      <span class="badge">Daily monitoring</span>
+      <h3>AI Campaign Pacing Check</h3>
+      <dl>
+        <dt>Problem</dt><dd>Underperforming platforms were often found late, when little budget was left to fix them.</dd>
+        <dt>Built</dt><dd>A Claude skill that compares the live report with the media plan every morning and flags any KPI 5+ points behind spend.</dd>
+        <dt>Result</dt><dd>The digital team gets one daily email showing exactly what needs attention.</dd>
+      </dl>
+      <span class="more">See how it works &darr;</span>
+    </button>
+    <button class="pcard" data-p="pj2">
+      <span class="badge">End of campaign</span>
+      <h3>AI End-of-Campaign Summary</h3>
+      <dl>
+        <dt>Problem</dt><dd>Writing EOC summaries meant checking every page, filter and objective by hand.</dd>
+        <dt>Built</dt><dd>A Claude skill that reads the report and media plan, ranks platforms by real cost per metric and writes the summary.</dd>
+        <dt>Result</dt><dd>A clear, consistent summary in minutes, reviewed by me before it goes into the report.</dd>
+      </dl>
+      <span class="more">See how it works &darr;</span>
+    </button>
+  </div>
+  <div data-pp="pj1">
+  <div class="ai">
+    <span class="badge">Built with Claude</span>
+    <h3>Campaign Pacing Check: a daily AI health check for every campaign</h3>
+    <p>I combined my analytics work with AI by building a Claude skill called <b>campaign-pacing-check</b>. Every morning it compares the live Looker Studio report with the media plan, checks whether each KPI is keeping up with the money spent, finds the platform or objective that is underperforming, and sends the digital team a short email. This means problems are caught early, before the end of the campaign.</p>
+
+    <div class="flow">
+      <div><b>1 · Media plan</b><small>Reads the planned targets and budget for each objective and platform from Google Drive.</small></div>
+      <div><b>2 · Live report</b><small>Opens the Looker Studio report and reads spend, impressions and clicks.</small></div>
+      <div><b>3 · Pacing check</b><small>Calculates spend pacing vs KPI pacing in Python, not by hand.</small></div>
+      <div><b>4 · Platform breakdown</b><small>For any KPI that is behind, filters each platform to find where the gap comes from.</small></div>
+      <div><b>5 · Daily email</b><small>Sends "On track" or "RED FLAG" with clear tables to the digital team through Gmail.</small></div>
+    </div>
+
+    <div class="rule">
+      <b>The rule it follows</b><br>
+      <code>Spend pacing = spend ÷ planned budget</code> &nbsp;·&nbsp; <code>KPI pacing = actual result ÷ media plan target</code><br>
+      If the KPI pacing is <b>5 points or more behind</b> the spend pacing, it is flagged as <b>BEHIND</b>. Example: 70% of the budget is spent but only 60% of the impressions target is delivered, so the gap is 10 points and it is flagged.
+    </div>
+
+    <p><b>Example of the daily email</b> <span style="color:var(--muted);font-size:.85rem">(demo numbers, not a real client)</span></p>
+    <div class="email">
+      <div class="eh"><b>Subject:</b> RED FLAG | Seasonal Offer Campaign | Pacing check 9 Nov 2026</div>
+      <div class="eb">
+        <p>Hi team,</p>
+        <p>Today's pacing check shows that impressions are behind plan. The gap comes mainly from TikTok and Snapchat. Clicks are on track.</p>
+        <div class="tw"><table>
+          <tr><th>KPI</th><th class="n">Actual</th><th class="n">MP target</th><th class="n">KPI pacing</th><th class="n">Spend pacing</th><th class="n">Gap</th><th>Status</th></tr>
+          <tr><td>Impressions</td><td class="n">1,620,000</td><td class="n">2,500,000</td><td class="n">64.8%</td><td class="n">70.0%</td><td class="n">5.2 pts</td><td><span class="st b">BEHIND</span></td></tr>
+          <tr><td>Clicks</td><td class="n">21,400</td><td class="n">28,000</td><td class="n">76.4%</td><td class="n">70.0%</td><td class="n">-6.4 pts</td><td><span class="st o">ON TRACK</span></td></tr>
+        </table></div>
+        <div class="tw"><table>
+          <tr><th>Objective</th><th>Platform</th><th class="n">Spend pacing</th><th class="n">Actual</th><th class="n">Expected</th><th class="n">Result pacing</th><th class="n">Shortfall</th><th>Status</th></tr>
+          <tr><td>Awareness</td><td>TikTok</td><td class="n">70.0%</td><td class="n">480,000</td><td class="n">560,000</td><td class="n">60.0%</td><td class="n">80,000</td><td><span class="st b">BEHIND</span></td></tr>
+          <tr><td>Awareness</td><td>Snapchat</td><td class="n">70.0%</td><td class="n">320,000</td><td class="n">350,000</td><td class="n">64.0%</td><td class="n">30,000</td><td><span class="st b">BEHIND</span></td></tr>
+          <tr><td>Awareness</td><td>Meta</td><td class="n">70.0%</td><td class="n">820,000</td><td class="n">840,000</td><td class="n">68.3%</td><td class="n">20,000</td><td><span class="st o">ON TRACK</span></td></tr>
+        </table></div>
+        <p style="margin:0;color:#4a535d;font-size:.8rem">Date range, data last updated, report link and media plan link are included at the end of every email.</p>
+      </div>
+    </div>
+
+    <div class="impact">
+      <div><b>Saves the digital team time</b>No one has to open every report each morning. One email shows what needs attention.</div>
+      <div><b>Catches problems early</b>Underperforming platforms and objectives are flagged while there is still budget left to fix them.</div>
+      <div><b>Leads to better recommendations</b>I use the flags to align with the strategy and performance teams and recommend budget shifts and optimisations.</div>
+      <div><b>Accurate by design</b>Always uses media plan targets, calculates with code, and never guesses if a report does not load.</div>
+    </div>
+  </div>
+  </div>
+  <div data-pp="pj2" class="hide">
+  <div class="ai">
+    <span class="badge">Built with Claude</span>
+    <h3>From live report to a finished client summary</h3>
+    <p>At the end of every campaign the client needs a clear written summary. I built a second Claude skill, <b>campaign-eoc-summary</b>, that reads the Looker Studio report and the media plan, analyses each objective using the cost-per-metric view, writes the summary in plain English, and then fills it into the report's Summary page after I approve it.</p>
+    <div class="flow">
+      <div><b>1 · Media plan</b><small>Reads every tab, including additional budget, and records the target metric, target and planned cost for each line.</small></div>
+      <div><b>2 · Overview</b><small>Records every KPI vs target and total spend vs budget.</small></div>
+      <div><b>3 · Breakdown</b><small>Filters one objective at a time and ranks platforms by actual cost per metric.</small></div>
+      <div><b>4 · Placements and language</b><small>Finds the top placements and the best creative language for each objective.</small></div>
+      <div><b>5 · Demographics</b><small>Finds the best age range and gender for each objective.</small></div>
+      <div><b>6 · Write and fill</b><small>Writes the summary, I review it, then it is filled into the report's Summary page.</small></div>
+    </div>
+    <div class="rule">
+      <b>Rules that keep it accurate</b>
+      <ul class="howto" style="margin-top:6px">
+        <li>The media plan decides which metric belongs to each objective. It never guesses.</li>
+        <li>Best platform = lowest actual cost per metric. Weakest platform = highest actual cost per metric.</li>
+        <li>Every number comes from the report or the media plan, and every calculation is checked (CPM, CPC, cost per result).</li>
+        <li>Nothing is published before I approve the draft.</li>
+      </ul>
+    </div>
+    <p><b>Example output</b> <span style="color:var(--muted);font-size:.85rem">(demo numbers, not a real client)</span></p>
+    <div class="email"><div class="eb">
+      <p><b>Overall Performance</b><br>Clicks: 18,240 (121.6% of 15,000 target) · Messages: 412 (103.0% of 400 target) · Spend: $6,000 (100% of $6,000 budget)</p>
+      <p><b>Website Traffic Campaign Performance</b><br>Delivered 18,240 clicks at $0.20 CPC, 43% lower than the planned $0.35. Spend was $3,600.<br>Best platform: TikTok at $0.14 CPC (9,100 clicks). Weakest platform: Snapchat at $0.31 CPC (3,880 clicks).</p>
+      <p><b>Messaging Campaign Performance</b><br>Delivered 412 messages at $5.83 per message, 17% lower than the planned $7.00. Spend was $2,400.</p>
+      <p><b>Placements</b><br>Website Traffic: TikTok feed 50%, Instagram Reels 22%, Snapchat stories 21%.</p>
+      <p><b>Best Creative Language</b><br>Website Traffic: Arabic at $0.17 CPC, 26% lower than English at $0.23.</p>
+      <p style="margin:0"><b>Top Demographics</b><br>Age: 25-34 drove 38% of clicks. Gender: male drove 64% of clicks.</p>
+    </div></div>
+    <div class="impact">
+      <div><b>Faster EOC reports</b>The summary is ready in minutes instead of reading every page and filter by hand.</div>
+      <div><b>Same structure every time</b>Every client gets the same clear format: overall, by objective, placements, language, demographics.</div>
+      <div><b>Fair platform ranking</b>Platforms are always ranked by real cost per result, so recommendations are based on efficiency.</div>
+      <div><b>Full monitoring cycle</b>The pacing check watches the campaign daily, and the EOC summary closes it at the end.</div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section id="methods">
+  <h2>Tools and Methods I Use</h2>
+  <p class="sectlead">Interactive examples of how I plan budgets and review creatives. All numbers are demo data.</p>
+  <div class="mtabs" id="mtabs">
+    <button class="on" data-m="m1">ROAS Budget Simulator</button>
+    <button data-m="m2">Creative Performance Analysis</button>
+  </div>
+  <div data-mp="m1">
+  <div class="goal">
+    <p class="lead" style="margin-bottom:8px">Before moving budget between platforms, I want to know what will happen to purchases and ROAS. This simulator shows how each platform responds to more budget. Every platform gets less efficient as you spend more on it, so the best split is not "put everything on the cheapest platform".</p>
+    <p style="color:var(--muted);font-size:.85rem;margin:0 0 14px">Demo assumptions for a sample e-commerce campaign. Move the sliders, or click "Find the best split".</p>
+    <div class="sim">
+      <div class="sliders" id="simSliders"></div>
+      <div class="simout">
+        <div class="kpis" id="simKpis" style="grid-template-columns:1fr 1fr"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+          <button class="btn" id="simBest">Find the best split</button>
+          <button class="btn ghost" id="simReset">Reset to even split</button>
+        </div>
+        <p id="simNote" class="simnote"></p>
+        <div class="cv" style="height:220px"><canvas id="cSim"></canvas></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div data-mp="m2" class="hide">
+  <div class="goal">
+    <p class="lead" style="margin-bottom:8px">Creatives decide a large part of campaign results. I compare each ad by format, hook and language to find what gives the best result for the money, then share clear creative recommendations with the client and the creative team.</p>
+    <p style="color:var(--muted);font-size:.85rem;margin:0 0 14px">Demo creatives and numbers, not a real client. Change the metric to see a different winner.</p>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;font-family:Inter,system-ui,sans-serif;font-size:.9rem">
+      <label for="crMetric" style="color:var(--muted)">Rank creatives by</label>
+      <select id="crMetric" class="sel"><option value="roas">ROAS</option><option value="cpa">Cost per Purchase</option><option value="cpc">CPC</option><option value="ctr">CTR</option></select>
+    </div>
+    <div class="tw" style="font-family:Inter,system-ui,sans-serif"><table id="crTbl"></table></div>
+    <div class="grid2" style="margin-top:12px;font-family:Inter,system-ui,sans-serif">
+      <div class="panel"><h5 id="crFmtT">By format</h5><div class="cv" style="height:220px"><canvas id="cCrFmt"></canvas></div></div>
+      <div class="panel"><h5 id="crLangT">By language</h5><div class="cv" style="height:220px"><canvas id="cCrLang"></canvas></div></div>
+    </div>
+    <div class="panel summary" id="crIns" style="margin-top:12px;font-family:Inter,system-ui,sans-serif"></div>
+  </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <h2>Let's talk about your campaigns</h2>
+  <p>Open to data and marketing analyst roles. I reply within one working day.</p>
+  <div class="ctas">
+    <a class="btn" href="mailto:hassanibrahem901@gmail.com">Email me</a>
+    <a class="btn ghost" href="https://linkedin.com/in/ibrahim-hassan-952739428" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn ghost" href="cv.pdf" download>Download CV</a>
+  </div>
+</section>
+
+<footer>© 2026 Ibrahim Mohamed Hassan</footer>
+</div>
+
+<script src="chart.umd.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+document.addEventListener('click',e=>{const d=$('dd');if(!d.contains(e.target))d.classList.remove('open')});
+
+/* ---------- brand strip ---------- */
+const BRANDS=["Al Mana Leasing","Osool","Osool Digital City","Obhur City","Granada Mall","GIB Capital","QSL","Zero.Zero","Pearson","Dur Communities","Delices Du Monde","HOV Global","Napco","Mama Noura","Nissan","Soueast","Omoda Jaecoo","ZEEKR","INFINITI","Exeed Oman","Exeed Qatar","Renault","JMC","AGCFF","PSG Academy & Store","AtoZ Services","A2Z Media","ZikPets","AURA GROUP","SHM Aftersales","SHM Preowned","Indian Motorcycles","Polaris","Kawasaki","Chelow Kebab","Studio 11","Mikano Motors","Orca Deco","Mikano Power","Makarem Hotels","Marriott Riyadh Airport","Crowne Plaza","Holiday Inn Jubail","Holiday Inn Tabuk"];
+$('track').innerHTML=[...BRANDS,...BRANDS].map(b=>`<span>${b.replace('&','&amp;')}</span>`).join('');
+
+/* ---------- demo data (random, seeded) ---------- */
+let seed=20261109;const rnd=()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+const R=(a,b)=>a+rnd()*(b-a);
+const PLAT={Meta:'#4c8dff',TikTok:'#ff5c8a',Snapchat:'#f5d547',Google:'#3ccf91'};
+const OBJ={Awareness:{cpm:2.2,ctr:.004,lr:0,  pr:0,   aov:0, pCpm:2.6,pCpc:.9, pCpl:0, pCpa:0, pRoas:0},
+           Traffic:  {cpm:4.5,ctr:.016,lr:0,  pr:0,   aov:0, pCpm:5,  pCpc:.35,pCpl:0, pCpa:0, pRoas:0},
+           Leads:    {cpm:7,  ctr:.011,lr:.04, pr:0,   aov:0, pCpm:8,  pCpc:.8, pCpl:16,pCpa:0, pRoas:0},
+           Sales:    {cpm:6,  ctr:.013,lr:0,  pr:.025,aov:85,pCpm:7,  pCpc:.6, pCpl:0, pCpa:24,pRoas:3.5}};
+const CAMPS=[{n:'Brand Awareness | Q4',o:'Awareness',p:['Meta','TikTok','Snapchat'],b:60},
+             {n:'Seasonal Offer | Website Traffic',o:'Traffic',p:['Meta','TikTok','Snapchat','Google'],b:55},
+             {n:'Lead Generation | Booking Form',o:'Leads',p:['Meta','Google'],b:70},
+             {n:'Online Store | Purchases',o:'Sales',p:['Meta','Google','TikTok'],b:80}];
+const PF={Meta:1,TikTok:.75,Snapchat:1.15,Google:1.3};
+const FMT=['Video','Image','Carousel','Story'];
+const DAYS=30;const today=new Date();
+const dates=[...Array(DAYS)].map((_,i)=>{const d=new Date(today);d.setDate(d.getDate()-(DAYS-1-i));return d});
+const rows=[];
+dates.forEach((d,di)=>CAMPS.forEach(c=>c.p.forEach(p=>{
+  const o=OBJ[c.o];const wk=(d.getDay()===4||d.getDay()===5)?1.15:1;
+  const part=di===DAYS-1?.35:1;
+  const spend=c.b*R(.8,1.1)*wk*part;
+  const cpm=o.cpm*PF[p]*R(.85,1.15);const impr=spend/cpm*1000;
+  const clicks=impr*o.ctr*R(.8,1.25)*(p==='TikTok'?1.25:1);
+  const leads=clicks*o.lr*R(.7,1.3);
+  const purch=clicks*o.pr*R(.75,1.25)*(p==='TikTok'?.6:1);const rev=purch*o.aov*R(.85,1.2);
+  rows.push({di,c:c.n,o:c.o,p,spend,impr,reach:impr/R(1.15,1.45),clicks,leads,purch,rev,fmt:FMT.map(()=>R(.5,1.5)),budget:c.b*part});
+})));
+const AGE=['18-24','25-34','35-44','45-54','55+'],AGEW=[.22,.34,.24,.13,.07];
+const GEN=['Male','Female'],GENW=[.62,.38];
+const CITY=['Riyadh','Jeddah','Dubai','Doha','Muscat','Lagos'],CITYW=[.27,.19,.18,.16,.11,.09];
+
+/* ---------- state + filters ---------- */
+const S={range:30,plat:new Set(Object.keys(PLAT)),obj:new Set(Object.keys(OBJ)),kpi:'clicks',cost:'cpc'};
+const KN={impr:'Impressions',reach:'Reach',clicks:'Clicks',leads:'Leads',purch:'Purchases'};
+const CN={cpm:'CPM',cpc:'CPC',cpl:'Cost per Lead',cpa:'Cost per Purchase'};
+$('fPlat').innerHTML=Object.entries(PLAT).map(([k,c])=>`<label><input type="checkbox" checked value="${k}"><span class="sw" style="background:${c}"></span>${k}</label>`).join('');
+$('fObj').innerHTML=Object.keys(OBJ).map(k=>`<label><input type="checkbox" checked value="${k}">${k}</label>`).join('');
+const bindSet=(id,set)=>$(id).addEventListener('change',e=>{e.target.checked?set.add(e.target.value):set.delete(e.target.value);render()});
+bindSet('fPlat',S.plat);bindSet('fObj',S.obj);
+$('fRange').onchange=e=>{S.range=+e.target.value;render()};
+$('fKpi').onchange=e=>{S.kpi=e.target.value;render()};
+$('fCost').onchange=e=>{S.cost=e.target.value;render()};
+$('tabs').onclick=e=>{const t=e.target.dataset.t;if(!t)return;
+  document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
+  document.querySelectorAll('[data-p]').forEach(p=>p.classList.toggle('hide',p.dataset.p!==t));render()};
+
+/* ---------- helpers ---------- */
+const sel=()=>rows.filter(r=>r.di>=DAYS-S.range&&S.plat.has(r.p)&&S.obj.has(r.o));
+const sum=a=>a.reduce((t,r)=>({spend:t.spend+r.spend,ls:t.ls+(r.o==='Leads'?r.spend:0),ps:t.ps+(r.o==='Sales'?r.spend:0),impr:t.impr+r.impr,reach:t.reach+r.reach,clicks:t.clicks+r.clicks,leads:t.leads+r.leads,purch:t.purch+r.purch,rev:t.rev+r.rev}),{spend:0,ls:0,ps:0,impr:0,reach:0,clicks:0,leads:0,purch:0,rev:0});
+const roas=t=>t.ps?t.rev/t.ps:0;
+const costOf=(t,k)=>k==='cpm'?(t.impr?t.spend/t.impr*1000:0):k==='cpc'?(t.clicks?t.spend/t.clicks:0):k==='cpl'?(t.leads?t.ls/t.leads:0):(t.purch?t.ps/t.purch:0);
+const PK={cpm:'pCpm',cpc:'pCpc',cpl:'pCpl',cpa:'pCpa'};
+const plannedCost=(a,k)=>{let w=0,v=0;a.forEach(r=>{const p=OBJ[r.o][PK[k]];if(p){w+=r.spend;v+=r.spend*p}});return w?v/w:0};
+const fmtN=n=>n>=1e6?(n/1e6).toFixed(2)+'M':n>=1e4?(n/1e3).toFixed(1)+'K':Math.round(n).toLocaleString('en-US');
+const fmt$=n=>'$'+(n>=1e4?(n/1e3).toFixed(1)+'K':n.toLocaleString('en-US',n<100?{minimumFractionDigits:2,maximumFractionDigits:2}:{maximumFractionDigits:0}));
+const by=(a,key)=>{const m={};a.forEach(r=>{(m[r[key]]=m[r[key]]||[]).push(r)});return m};
+
+/* ---------- charts ---------- */
+Chart.defaults.color='#9aa5b1';Chart.defaults.borderColor='#2a323b';Chart.defaults.font.family='Inter,system-ui,sans-serif';
+const C={};
+const mk=(id,cfg)=>C[id]=new Chart($(id),cfg);
+const base={responsive:true,maintainAspectRatio:false,animation:{duration:300},plugins:{legend:{labels:{boxWidth:10}}}};
+mk('cTrend',{type:'bar',data:{labels:[],datasets:[{type:'line',label:'',data:[],borderColor:'#6fb3f2',backgroundColor:'rgba(111,179,242,.15)',fill:true,tension:.35,pointRadius:0,yAxisID:'y'},{type:'bar',label:'Spend',data:[],backgroundColor:'rgba(154,165,177,.25)',yAxisID:'y1'}]},
+  options:{...base,interaction:{mode:'index',intersect:false},scales:{y:{position:'left',ticks:{callback:v=>fmtN(v)}},y1:{position:'right',grid:{display:false},ticks:{callback:v=>'$'+v}}}}});
+mk('cSpend',{type:'doughnut',data:{labels:[],datasets:[{data:[],backgroundColor:[],borderColor:'#1a2027'}]},options:{...base,cutout:'62%',plugins:{legend:{position:'bottom',labels:{boxWidth:10}}}}});
+mk('cPlat',{type:'bar',data:{labels:[],datasets:[{label:'',data:[],backgroundColor:[],yAxisID:'y'},{type:'line',label:'',data:[],borderColor:'#e8ebee',pointBackgroundColor:'#e8ebee',yAxisID:'y1'}]},
+  options:{...base,scales:{y:{ticks:{callback:v=>fmtN(v)}},y1:{position:'right',grid:{display:false},ticks:{callback:v=>'$'+v}}}}});
+mk('cFmt',{type:'bar',data:{labels:FMT,datasets:[{label:'',data:[],backgroundColor:'#6fb3f2'}]},options:{...base,indexAxis:'y',plugins:{legend:{display:false}}}});
+mk('cAge',{type:'bar',data:{labels:AGE,datasets:[{data:[],backgroundColor:'#6fb3f2'}]},options:{...base,indexAxis:'y',plugins:{legend:{display:false}}}});
+mk('cGen',{type:'doughnut',data:{labels:GEN,datasets:[{data:[],backgroundColor:['#4c8dff','#ff5c8a'],borderColor:'#1a2027'}]},options:{...base,cutout:'62%',plugins:{legend:{position:'bottom'}}}});
+mk('cReg',{type:'bar',data:{labels:CITY,datasets:[{data:[],backgroundColor:'#3ccf91'}]},options:{...base,plugins:{legend:{display:false}}}});
+
+/* ---------- render ---------- */
+function render(){
+  const a=sel(),t=sum(a),K=S.kpi,Ck=S.cost,kn=KN[K],cn=CN[Ck];
+  const budget=a.reduce((s,r)=>s+r.budget,0);
+  const plm=plannedCost(a,'cpm'),plc=plannedCost(a,'cpc'),pll=plannedCost(a,'cpl');
+  const leadSpend=a.filter(r=>r.o==='Leads').reduce((s,r)=>s+r.spend,0);
+  const pla=plannedCost(a,'cpa');
+  const tgt={impr:plm?t.spend/plm*1000:0,clicks:plc?t.spend/plc:0,leads:pll?leadSpend/pll:0,purch:pla?t.ps/pla:0};
+  const R0=roas(t),pR=OBJ.Sales.pRoas,rd=pR?(R0-pR)/pR*100:0;
+  const card=(lab,val,tv,money)=>{const pct=tv?val/tv*100:null;
+    return `<div class="kpi"><small>${lab}</small><b>${money?fmt$(val):fmtN(val)}</b>${pct!==null?`<div class="bar"><i style="width:${Math.min(pct,100)}%"></i></div><em class="${money?'':pct>=100?'good':pct<90?'bad':''}">${pct.toFixed(1)}% of ${money?fmt$(tv)+' budget':fmtN(tv)+' target'}</em>`:'<em>No target for this filter</em>'}</div>`};
+  const cv=costOf(t,Ck),pc=plannedCost(a,Ck),diff=pc?(cv-pc)/pc*100:0;
+  $('kpis').innerHTML=card('Impressions',t.impr,tgt.impr)+card('Clicks',t.clicks,tgt.clicks)+card('Leads',t.leads,tgt.leads)+card('Purchases',t.purch,tgt.purch)+card('Spend',t.spend,budget,true)+
+    `<div class="kpi"><small>ROAS</small><b>${R0?R0.toFixed(2)+'x':'–'}</b><em class="${R0?(rd>=0?'good':'bad'):''}">${R0?`${Math.abs(rd).toFixed(0)}% ${rd>=0?'above':'below'} target ${pR.toFixed(1)}x`:'No sales campaign in filter'}</em></div>`+
+    `<div class="kpi"><small>${cn}</small><b>${cv?fmt$(cv):'–'}</b><em class="${pc&&cv?(diff<=0?'good':'bad'):''}">${pc&&cv?`${Math.abs(diff).toFixed(0)}% ${diff<=0?'below':'above'} planned ${fmt$(pc)}`:'No plan for this filter'}</em></div>`;
+
+  // overview
+  const days=[...Array(S.range)].map((_,i)=>DAYS-S.range+i);
+  const perDay=days.map(d=>sum(a.filter(r=>r.di===d)));
+  C.cTrend.data.labels=days.map(d=>dates[d].toLocaleDateString('en-GB',{day:'numeric',month:'short'}));
+  C.cTrend.data.datasets[0].label=kn;C.cTrend.data.datasets[0].data=perDay.map(x=>Math.round(x[K]));
+  C.cTrend.data.datasets[1].data=perDay.map(x=>Math.round(x.spend));
+  $('trendTitle').textContent=`${kn} and spend over time`;
+  const bp=by(a,'p'),pk=Object.keys(bp);
+  C.cSpend.data.labels=pk;C.cSpend.data.datasets[0].data=pk.map(p=>Math.round(sum(bp[p]).spend));C.cSpend.data.datasets[0].backgroundColor=pk.map(p=>PLAT[p]);
+
+  // breakdown
+  const groups=[];Object.entries(by(a,'c')).forEach(([c,ra])=>Object.entries(by(ra,'p')).forEach(([p,rp])=>groups.push({c,p,o:rp[0].o,t:sum(rp)})));
+  groups.sort((x,y)=>y.t[K]-x.t[K]);
+  $('tblTitle').textContent=`Campaign performance by ${kn}, ${cn} and spend`;
+  $('tbl').innerHTML=`<tr><th>Campaign</th><th>Platform</th><th>Objective</th><th class="n">${kn}</th><th class="n">${cn}</th><th class="n">CTR</th><th class="n">Spend</th></tr>`+
+    groups.map(g=>{const c=costOf(g.t,Ck);return `<tr><td>${g.c}</td><td><span class="sw" style="background:${PLAT[g.p]}"></span> ${g.p}</td><td>${g.o}</td><td class="n">${fmtN(g.t[K])}</td><td class="n">${c?fmt$(c):'–'}</td><td class="n">${(g.t.clicks/g.t.impr*100).toFixed(2)}%</td><td class="n">${fmt$(g.t.spend)}</td></tr>`}).join('');
+  C.cPlat.data.labels=pk;C.cPlat.data.datasets[0].label=kn;C.cPlat.data.datasets[0].data=pk.map(p=>Math.round(sum(bp[p])[K]));C.cPlat.data.datasets[0].backgroundColor=pk.map(p=>PLAT[p]);
+  C.cPlat.data.datasets[1].label=cn;C.cPlat.data.datasets[1].data=pk.map(p=>{const c=costOf(sum(bp[p]),Ck);return c?+c.toFixed(2):null});
+  $('platTitle').textContent=`${kn} and ${cn} by platform`;
+  C.cFmt.data.datasets[0].data=FMT.map((_,i)=>Math.round(a.reduce((s,r)=>s+r[K]*r.fmt[i]/r.fmt.reduce((x,y)=>x+y),0)));
+  $('fmtTitle').textContent=`${kn} by ad format`;
+
+  // audience
+  C.cAge.data.datasets[0].data=AGEW.map(w=>Math.round(t[K]*w));
+  C.cGen.data.datasets[0].data=GENW.map(w=>Math.round(t[K]*w));
+  C.cReg.data.datasets[0].data=CITYW.map(w=>Math.round(t[K]*w));
+  ['age','gen','reg'].forEach((x,i)=>$(x+'Title').textContent=`${kn} by ${['age','gender','city'][i]}`);
+
+  // summary written like a client recap
+  const plats=pk.map(p=>({p,t:sum(bp[p])})).filter(x=>costOf(x.t,Ck)>0).sort((x,y)=>costOf(x.t,Ck)-costOf(y.t,Ck));
+  const best=plats[0],worst=plats[plats.length-1];
+  const ctr=t.impr?t.clicks/t.impr*100:0;
+  const pctC=tgt.clicks?t.clicks/tgt.clicks*100:0,pctL=tgt.leads?t.leads/tgt.leads*100:0;
+  $('summary').innerHTML=a.length?`
+    <p><b>Overall performance (last ${S.range} days)</b></p>
+    <ul>
+      <li>Impressions: ${fmtN(t.impr)} · Reach: ${fmtN(t.reach)}</li>
+      <li>Clicks: ${fmtN(t.clicks)}${tgt.clicks?` (${pctC.toFixed(1)}% of ${fmtN(tgt.clicks)} target)`:''} · CTR: ${ctr.toFixed(2)}%</li>
+      ${tgt.leads?`<li>Leads: ${fmtN(t.leads)} (${pctL.toFixed(1)}% of ${fmtN(tgt.leads)} target)</li>`:''}
+      ${tgt.purch?`<li>Purchases: ${fmtN(t.purch)} (${(t.purch/tgt.purch*100).toFixed(1)}% of ${fmtN(tgt.purch)} target) · Revenue: ${fmt$(t.rev)} · ROAS: ${R0.toFixed(2)}x vs ${pR.toFixed(1)}x target</li>`:''}
+      <li>Spend: ${fmt$(t.spend)} (${(t.spend/budget*100).toFixed(1)}% of ${fmt$(budget)} budget)</li>
+    </ul>
+    <p><b>Key insights</b></p>
+    <ul>
+      ${best?`<li><b>${best.p}</b> delivered the most efficient ${cn} at ${fmt$(costOf(best.t,Ck))}${worst!==best?`, compared with ${fmt$(costOf(worst.t,Ck))} on <b>${worst.p}</b>`:''}.</li>`:''}
+      ${pc&&cv?`<li>Overall ${cn} is ${fmt$(cv)}, which is ${Math.abs(diff).toFixed(0)}% ${diff<=0?'lower':'higher'} than the planned ${fmt$(pc)}.</li>`:''}
+      ${(()=>{const rp=pk.map(p=>({p,t:sum(bp[p])})).filter(x=>x.t.ps>0).sort((x,y)=>roas(y.t)-roas(x.t));return rp.length>1?`<li>For the purchase campaign, <b>${rp[0].p}</b> returned the highest ROAS at ${roas(rp[0].t).toFixed(2)}x, while <b>${rp[rp.length-1].p}</b> returned ${roas(rp[rp.length-1].t).toFixed(2)}x.</li>`:''})()}
+      <li>The 25–34 age group drove the largest share of ${kn.toLowerCase()}, followed by 35–44.</li>
+      <li>Riyadh and Jeddah were the top cities, together delivering about ${Math.round((CITYW[0]+CITYW[1])*100)}% of ${kn.toLowerCase()}.</li>
+    </ul>
+    <p><b>Recommendations</b></p>
+    <ul>
+      ${best&&worst!==best?`<li>Move part of the ${worst.p} budget to ${best.p} to lower the overall ${cn}.</li>`:''}
+      ${tgt.leads&&pctL<100?`<li>Leads are behind target. Refresh the lead form creatives and test a shorter form.</li>`:`<li>Keep the current setup and scale the best-performing ad sets gradually.</li>`}
+      ${R0?`<li>${rd>=0?'ROAS is above target, so scale the purchase campaign budget step by step while watching cost per purchase.':'ROAS is below target. Shift budget to the highest-ROAS platform and retarget website visitors and cart abandoners.'}</li>`:''}
+      <li>Focus video creatives on the 25–34 audience, which shows the strongest response.</li>
+    </ul>`:'<p>No data for the selected filters.</p>';
+
+  Object.values(C).forEach(c=>c.update());
+}
+render();
+
+/* ---------- live: today's numbers keep growing ---------- */
+setInterval(()=>{rows.filter(r=>r.di===DAYS-1).forEach(r=>{const k=R(.004,.012);r.spend*=1+k;r.budget*=1+k*.9;r.impr*=1+k;r.reach*=1+k*.8;r.clicks*=1+k*R(.8,1.2);r.leads*=1+k*R(.6,1.4);r.purch*=1+k*R(.7,1.3);r.rev*=1+k*R(.7,1.3)});
+  Object.values(C).forEach(c=>c.options.animation=false);render();Object.values(C).forEach(c=>c.options.animation={duration:300})},4000);
+</script>
+
+<script>
+/* ---------- Project 3: ROAS simulator (demo assumptions) ---------- */
+(()=>{
+const P={Meta:{cpa0:16,aov:90,sat:20000},TikTok:{cpa0:20,aov:75,sat:12000},Snapchat:{cpa0:24,aov:80,sat:8000},Google:{cpa0:14,aov:95,sat:6000}};
+const MAX=15000,STEP=250,TOTAL=20000,TR=3.5;
+const B={};const even=()=>Object.keys(P).forEach(k=>B[k]=TOTAL/4);even();
+const purch=(k,b)=>b/P[k].cpa0/(1+b/P[k].sat);const rev=(k,b)=>purch(k,b)*P[k].aov;
+$('simSliders').innerHTML=Object.keys(P).map(k=>`<div class="sl"><div class="top"><span><span class="sw" style="background:${PLAT[k]}"></span> ${k}</span><b id="v_${k}"></b></div><input type="range" min="0" max="${MAX}" step="${STEP}" id="s_${k}"><small id="m_${k}"></small></div>`).join('');
+const ch=new Chart($('cSim'),{type:'bar',data:{labels:Object.keys(P),datasets:[{label:'Revenue',data:[],backgroundColor:Object.keys(P).map(k=>PLAT[k]),yAxisID:'y'},{type:'line',label:'ROAS',data:[],borderColor:'#e8ebee',pointBackgroundColor:'#e8ebee',yAxisID:'y1'}]},
+ options:{responsive:true,maintainAspectRatio:false,animation:{duration:250},plugins:{legend:{labels:{boxWidth:10}}},scales:{y:{ticks:{callback:v=>'$'+fmtN(v)}},y1:{position:'right',grid:{display:false},ticks:{callback:v=>v+'x'}}}}});
+function draw(note){
+  let sp=0,pu=0,rv=0;
+  Object.keys(P).forEach(k=>{const b=B[k];$('s_'+k).value=b;$('v_'+k).textContent=fmt$(b);
+    const r=b?rev(k,b)/b:0;$('m_'+k).textContent=b?`${fmtN(purch(k,b))} purchases · ROAS ${r.toFixed(2)}x`:'No budget';sp+=b;pu+=purch(k,b);rv+=rev(k,b)});
+  const ro=sp?rv/sp:0;
+  $('simKpis').innerHTML=`<div class="kpi"><small>Total budget</small><b>${fmt$(sp)}</b><em>&nbsp;</em></div><div class="kpi"><small>Purchases</small><b>${fmtN(pu)}</b><em>Cost per purchase ${pu?fmt$(sp/pu):'–'}</em></div><div class="kpi"><small>Revenue</small><b>${fmt$(rv)}</b><em>&nbsp;</em></div><div class="kpi"><small>ROAS</small><b>${ro.toFixed(2)}x</b><em class="${ro>=TR?'good':'bad'}">${ro>=TR?'Above':'Below'} the ${TR}x target</em></div>`;
+  ch.data.datasets[0].data=Object.keys(P).map(k=>Math.round(rev(k,B[k])));ch.data.datasets[1].data=Object.keys(P).map(k=>B[k]?+(rev(k,B[k])/B[k]).toFixed(2):null);ch.update();
+  $('simNote').textContent=note||'';
+}
+Object.keys(P).forEach(k=>$('s_'+k).addEventListener('input',e=>{B[k]=+e.target.value;draw()}));
+$('simReset').onclick=()=>{even();draw('Budget split evenly across the four platforms.')};
+$('simBest').onclick=()=>{
+  const before=Object.keys(P).reduce((s,k)=>s+rev(k,B[k]),0);
+  const tot=Object.values(B).reduce((a,b)=>a+b,0);Object.keys(P).forEach(k=>B[k]=0);
+  for(let left=tot;left>=STEP;left-=STEP){let best=null,g=-1;Object.keys(P).forEach(k=>{if(B[k]+STEP>MAX)return;const d=rev(k,B[k]+STEP)-rev(k,B[k]);if(d>g){g=d;best=k}});if(!best)break;B[best]+=STEP}
+  const after=Object.keys(P).reduce((s,k)=>s+rev(k,B[k]),0);
+  draw(`Same total budget, revenue ${after>=before?'up':'down'} ${fmt$(Math.abs(after-before))} (${((after-before)/before*100).toFixed(1)}%) by moving money to where each extra dollar earns the most.`)};
+draw();
+})();
+
+/* ---------- Project 4: creative analysis (demo data) ---------- */
+(()=>{
+const CR=[
+ {n:'Offer hook 15s',f:'Video',l:'Arabic',s:2400,i:520000,c:7800,p:128,r:12100},
+ {n:'Offer hook 15s',f:'Video',l:'English',s:1800,i:395000,c:5100,p:74,r:6600},
+ {n:'Brand story 30s',f:'Video',l:'Arabic',s:1500,i:360000,c:3200,p:38,r:3500},
+ {n:'Price + CTA',f:'Image',l:'Arabic',s:1200,i:300000,c:3900,p:61,r:5200},
+ {n:'Price + CTA',f:'Image',l:'English',s:900,i:230000,c:2600,p:33,r:2900},
+ {n:'Product range',f:'Carousel',l:'Arabic',s:1600,i:340000,c:5600,p:90,r:8400},
+ {n:'Customer review (UGC)',f:'Story',l:'Arabic',s:1300,i:410000,c:6100,p:82,r:7600},
+ {n:'Customer review (UGC)',f:'Story',l:'English',s:1000,i:300000,c:3700,p:41,r:3700}];
+const M={roas:{n:'ROAS',v:x=>x.r/x.s,f:v=>v.toFixed(2)+'x',hi:true},cpa:{n:'Cost per Purchase',v:x=>x.s/x.p,f:v=>fmt$(v),hi:false},cpc:{n:'CPC',v:x=>x.s/x.c,f:v=>fmt$(v),hi:false},ctr:{n:'CTR',v:x=>x.c/x.i*100,f:v=>v.toFixed(2)+'%',hi:true}};
+const agg=(a)=>a.reduce((t,x)=>({s:t.s+x.s,i:t.i+x.i,c:t.c+x.c,p:t.p+x.p,r:t.r+x.r}),{s:0,i:0,c:0,p:0,r:0});
+const grp=(k)=>{const g={};CR.forEach(x=>(g[x[k]]=g[x[k]]||[]).push(x));return Object.entries(g).map(([n,a])=>({n,t:agg(a)}))};
+const opt={responsive:true,maintainAspectRatio:false,animation:{duration:250},plugins:{legend:{display:false}}};
+const cF=new Chart($('cCrFmt'),{type:'bar',data:{labels:[],datasets:[{data:[],backgroundColor:'#6fb3f2'}]},options:opt});
+const cL=new Chart($('cCrLang'),{type:'bar',data:{labels:[],datasets:[{data:[],backgroundColor:['#3ccf91','#f5d547']}]},options:opt});
+function draw(){
+  const m=M[$('crMetric').value];
+  const rows=[...CR].sort((a,b)=>m.hi?m.v(b)-m.v(a):m.v(a)-m.v(b));
+  $('crTbl').innerHTML=`<tr><th>#</th><th>Creative</th><th>Format</th><th>Language</th><th class="n">Spend</th><th class="n">CTR</th><th class="n">CPC</th><th class="n">Purchases</th><th class="n">Cost per Purchase</th><th class="n">ROAS</th></tr>`+
+   rows.map((x,i)=>`<tr${i===0?' style="background:rgba(60,207,145,.08)"':''}><td>${i+1}</td><td>${x.n}</td><td>${x.f}</td><td>${x.l}</td><td class="n">${fmt$(x.s)}</td><td class="n">${M.ctr.f(M.ctr.v(x))}</td><td class="n">${M.cpc.f(M.cpc.v(x))}</td><td class="n">${x.p}</td><td class="n">${M.cpa.f(M.cpa.v(x))}</td><td class="n">${M.roas.f(M.roas.v(x))}</td></tr>`).join('');
+  const fm=grp('f'),lg=grp('l');
+  cF.data.labels=fm.map(x=>x.n);cF.data.datasets[0].data=fm.map(x=>+m.v(x.t).toFixed(2));cF.update();
+  cL.data.labels=lg.map(x=>x.n);cL.data.datasets[0].data=lg.map(x=>+m.v(x.t).toFixed(2));cL.update();
+  $('crFmtT').textContent=`${m.n} by format`;$('crLangT').textContent=`${m.n} by language`;
+  const bf=[...fm].sort((a,b)=>m.hi?m.v(b.t)-m.v(a.t):m.v(a.t)-m.v(b.t));
+  const ar=lg.find(x=>x.n==='Arabic').t,en=lg.find(x=>x.n==='English').t;
+  const av=m.v(ar),ev=m.v(en),arWins=m.hi?av>ev:av<ev,diff=Math.abs(av-ev)/(arWins?ev:av)*100;
+  $('crIns').innerHTML=`<p><b>Key findings by ${m.n}</b></p><ul>
+   <li>Best creative: <b>${rows[0].n}</b> (${rows[0].f}, ${rows[0].l}) at ${m.f(m.v(rows[0]))}. Weakest: <b>${rows[rows.length-1].n}</b> (${rows[rows.length-1].f}, ${rows[rows.length-1].l}) at ${m.f(m.v(rows[rows.length-1]))}.</li>
+   <li>Best format: <b>${bf[0].n}</b> at ${m.f(m.v(bf[0].t))}, compared with ${bf[bf.length-1].n} at ${m.f(m.v(bf[bf.length-1].t))}.</li>
+   <li>Language: <b>${arWins?'Arabic':'English'}</b> performed better at ${m.f(arWins?av:ev)} vs ${m.f(arWins?ev:av)} (${diff.toFixed(0)}% ${m.hi?'higher':'lower'}).</li></ul>
+   <p><b>Recommendations</b></p><ul>
+   <li>Move more budget to the "${rows[0].n}" ${rows[0].l} ${rows[0].f.toLowerCase()} and pause or refresh the weakest creative.</li>
+   <li>Brief the creative team on more ${bf[0].n.toLowerCase()} ads in ${arWins?'Arabic':'English'}, using the same hook.</li></ul>`;
+}
+$('crMetric').onchange=draw;draw();
+})();
+</script>
+<script>
+/* project cards + method tabs */
+const tab=(btnSel,attr,panelAttr)=>document.querySelectorAll(btnSel).forEach(b=>b.addEventListener('click',()=>{
+  const k=b.dataset[attr];document.querySelectorAll(btnSel).forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll(`[data-${panelAttr}]`).forEach(p=>p.classList.toggle('hide',p.dataset[panelAttr]!==k));
+  if(attr==='p')document.querySelector(`[data-pp="${k}"]`).scrollIntoView({behavior:'smooth',block:'start'});
+}));
+tab('#pcards .pcard','p','pp');tab('#mtabs button','m','mp');
+/* highlight current section in sub-nav */
+const links=[...document.querySelectorAll('#subnav a')];
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -55% 0px'});
+['brands','role','dashboard','projects','methods','contact'].forEach(id=>obs.observe(document.getElementById(id)));
+</script>
+</body>
+</html>

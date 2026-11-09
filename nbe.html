@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>National Bank of Egypt | Ibrahim Hassan</title>
+<meta name="description" content="Ibrahim Hassan, Customer Service Agent at the National Bank of Egypt: high-volume banking support, complaint resolution, and mentoring new joiners.">
+<meta property="og:title" content="Ibrahim Hassan | National Bank of Egypt">
+<meta property="og:description" content="Ibrahim Hassan, Customer Service Agent at the National Bank of Egypt: high-volume banking support, complaint resolution, and mentoring new joiners.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f1317'/%3E%3Crect x='14' y='34' width='8' height='16' rx='2' fill='%236fb3f2'/%3E%3Crect x='28' y='24' width='8' height='26' rx='2' fill='%236fb3f2'/%3E%3Crect x='42' y='14' width='8' height='36' rx='2' fill='%233ccf91'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.wrap.wide{max-width:1100px}
+/* brand strip */
+.marquee{position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin:8px 0 14px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.track{display:flex;gap:12px;width:max-content;animation:scroll 90s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.track span{white-space:nowrap;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 16px;font:500 .9rem Inter,system-ui,sans-serif;color:var(--ink)}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.track{animation-duration:400s}}
+.regions{display:flex;flex-wrap:wrap;gap:8px;font:600 .82rem Inter,system-ui,sans-serif}
+.regions span{background:var(--chip);color:var(--accent);border-radius:6px;padding:5px 11px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:18px}
+.stats div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.stats b{display:block;font-size:1.6rem;color:var(--accent);font-family:Inter,system-ui,sans-serif}
+.stats small{color:var(--muted)}
+/* process */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;counter-reset:s}
+.steps div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;counter-increment:s}
+.steps div::before{content:counter(s);display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#0f1317;font:700 .85rem Inter,system-ui,sans-serif;margin-bottom:8px}
+.steps b{display:block;margin-bottom:4px}
+.steps p{margin:0;color:var(--muted);font-size:.92rem}
+/* dashboard */
+.dash{background:#0b0f13;border:1px solid var(--line);border-radius:14px;overflow:hidden;font-family:Inter,system-ui,sans-serif;font-size:.9rem}
+.dbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--card)}
+.dbar h3{margin:0;font-size:1rem;letter-spacing:.5px;margin-right:auto}
+.live{display:inline-flex;align-items:center;gap:6px;color:#3ccf91;font-weight:600;font-size:.8rem}
+.live i{width:8px;height:8px;border-radius:50%;background:#3ccf91;animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(60,207,145,.6)}100%{box-shadow:0 0 0 8px rgba(60,207,145,0)}}
+.demo{color:var(--muted);font-size:.78rem}
+.dbody{display:grid;grid-template-columns:200px 1fr}
+.side{border-right:1px solid var(--line);padding:14px;display:flex;flex-direction:column;gap:16px;background:var(--card)}
+.side h4{margin:0 0 6px;font-size:.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.side label{display:flex;align-items:center;gap:8px;padding:3px 0;cursor:pointer}
+.side select{width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px}
+.sw{width:10px;height:10px;border-radius:2px;display:inline-block}
+.main{padding:14px;min-width:0}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:14px}
+.tabs button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:6px 12px;cursor:pointer;font:inherit}
+.tabs button.on{background:var(--accent);color:#0f1317;border-color:var(--accent);font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}
+.kpi small{color:var(--muted);display:block}
+.kpi b{font-size:1.35rem;display:block;margin:2px 0}
+.bar{height:5px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--accent)}
+.kpi em{font-style:normal;font-size:.75rem;color:var(--muted)}
+.good{color:#3ccf91!important}.bad{color:#ff7a7a!important}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;min-width:0}
+.panel h5{margin:0 0 8px;font-size:.85rem;color:var(--muted);font-weight:600}
+.cv{position:relative;height:240px}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font-weight:600}
+td.n,th.n{text-align:right}
+.tw{overflow-x:auto}
+.summary p{margin:0 0 10px;line-height:1.6}
+.summary ul{margin:0 0 10px;padding-left:20px;line-height:1.7}
+.hide{display:none}
+.sim{display:grid;grid-template-columns:1fr 1.2fr;gap:18px;font-family:Inter,system-ui,sans-serif}
+.sliders{display:flex;flex-direction:column;gap:14px}
+.sl{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px}
+.sl .top{display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:6px}
+.sl input{width:100%;accent-color:var(--accent)}
+.sl small{color:var(--muted);font-size:.78rem}
+.btn{background:var(--accent);color:#0f1317;border:0;border-radius:8px;padding:8px 14px;font:600 .88rem Inter,system-ui,sans-serif;cursor:pointer}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
+.simnote{font-size:.88rem;color:var(--muted);min-height:1.2em;margin:0 0 8px}
+.sel{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px}
+@media (max-width:820px){.sim{grid-template-columns:1fr}}
+
+.goal{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.goal .lead{font-size:1.05rem;margin:0 0 16px}
+.gcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.gcards div{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--bg)}
+.gcards small{display:block;font:700 .72rem Inter,system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.gcards b{display:block;font-family:Inter,system-ui,sans-serif;color:var(--accent);margin-bottom:4px}
+.gcards div.star{border-color:rgba(60,207,145,.5);background:rgba(60,207,145,.06)}
+.gcards div.star b{color:#3ccf91}
+.roas{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin:16px 0;padding:14px 16px;border-left:3px solid #3ccf91;background:var(--bg);border-radius:6px}
+.roas .f{font:600 1.05rem ui-monospace,Consolas,monospace;color:#3ccf91}
+.roas p{margin:0;flex:1 1 260px}
+.howto{margin:6px 0 0;padding-left:20px}
+.howto li{margin-bottom:6px}
+
+.ptitle{font-size:1.25rem;margin:8px 0 10px;color:var(--ink)}
+/* AI pacing section */
+.ai{background:linear-gradient(135deg,rgba(111,179,242,.08),rgba(60,207,145,.06));border:1px solid var(--line);border-radius:14px;padding:22px}
+.ai .badge{display:inline-block;font:600 .75rem Inter,system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase;color:#3ccf91;border:1px solid rgba(60,207,145,.4);border-radius:999px;padding:3px 10px;margin-bottom:10px}
+.ai h3{margin:0 0 8px;font-size:1.3rem}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0}
+.flow div{flex:1 1 140px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:.9rem;position:relative}
+.flow b{display:block;font-family:Inter,system-ui,sans-serif;font-size:.85rem;color:var(--accent);margin-bottom:4px}
+.flow div small{color:var(--muted);display:block;line-height:1.45}
+.rule{background:var(--card);border-left:3px solid var(--accent);border-radius:6px;padding:12px 16px;margin:14px 0;font-size:.95rem}
+.rule code{font-family:ui-monospace,Consolas,monospace;font-size:.88rem;color:var(--accent)}
+.email{background:#f4f5f7;color:#1d2329;border-radius:10px;overflow:hidden;font:14px/1.5 Inter,system-ui,sans-serif;margin-top:16px}
+.email .eh{background:#e6e9ee;padding:10px 14px;font-size:.82rem;color:#4a535d}
+.email .eh b{color:#1d2329}
+.email .eb{padding:14px}
+.email p{margin:0 0 10px}
+.email table{font-size:.8rem;margin-bottom:12px;background:#fff}
+.email th,.email td{border:1px solid #dfe3e8;padding:6px 8px;color:#1d2329}
+.email th{background:#eef1f5;color:#4a535d}
+.st{font-weight:700;font-size:.75rem;padding:2px 7px;border-radius:4px}
+.st.b{background:#fde2e2;color:#b42318}.st.o{background:#dcfae6;color:#067647}
+.impact{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px}
+.impact div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:.93rem}
+.impact b{display:block;margin-bottom:4px}
+
+@media (max-width:820px){.kpis{grid-template-columns:1fr 1fr}.dbody{grid-template-columns:1fr}.side{border-right:0;border-bottom:1px solid var(--line);flex-direction:row;flex-wrap:wrap}.side>div{flex:1 1 140px}.grid2,.grid3{grid-template-columns:1fr}}
+
+/* ---- v2 layout ---- */
+html{scroll-behavior:smooth}
+section,[data-pp]{scroll-margin-top:70px}
+.hero{padding:20px 0 30px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.eyebrow{font-size:.85rem;color:var(--muted);margin:0 0 10px;letter-spacing:.3px}
+.hero h1{font-size:clamp(1.8rem,4.2vw,2.8rem);line-height:1.15;margin:0 0 14px;max-width:820px;letter-spacing:-.5px}
+.hero h1 span{color:var(--accent)}
+.hero .sub{font-size:1.08rem;color:var(--muted);max-width:760px;margin:0 0 22px;line-height:1.6}
+.hstats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.hstats div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.hstats b{display:block;font-size:1.7rem;font-weight:800;color:var(--ink);letter-spacing:-.5px}
+.hstats small{color:var(--muted);font-size:.85rem}
+.ctas{display:flex;flex-wrap:wrap;gap:10px}
+.ctas a{text-decoration:none}
+.subnav{position:sticky;top:0;z-index:5;background:rgba(15,19,23,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:10px 0;margin-bottom:10px}
+.subnav a{color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:500;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.subnav a:hover,.subnav a.on{color:var(--ink);background:var(--card)}
+.sectlead{color:var(--muted);margin:-6px 0 16px}
+.pcards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.pcard{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;color:var(--ink);font:inherit;transition:border-color .2s}
+.pcard:hover{border-color:var(--muted)}
+.pcard.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.pcard .badge{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#3ccf91;border:1px solid rgba(60,207,145,.4);border-radius:999px;padding:2px 9px;margin-bottom:8px}
+.pcard h3{margin:0 0 10px;font-size:1.15rem}
+.pcard dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 10px;font-size:.9rem}
+.pcard dt{color:var(--muted);font-weight:600}
+.pcard dd{margin:0}
+.pcard .more{display:block;margin-top:12px;color:var(--accent);font-size:.85rem;font-weight:600}
+.mtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.mtabs button{background:var(--card);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:8px 16px;cursor:pointer;font:600 .9rem Inter,Inter,system-ui,sans-serif}
+.mtabs button.on{background:var(--accent);color:#0f1317;border-color:var(--accent)}
+.cta{background:linear-gradient(135deg,rgba(111,179,242,.12),rgba(60,207,145,.08));border:1px solid var(--line);border-radius:16px;padding:28px;text-align:center;margin-top:40px}
+.cta h2{border:0;margin:0 0 8px;padding:0;text-transform:none;letter-spacing:0;font-size:1.5rem}
+.cta p{color:var(--muted);margin:0 0 18px}
+.cta .ctas{justify-content:center}
+.ptitle{font-size:1.25rem;margin:8px 0 10px;color:var(--ink)}
+@media (max-width:820px){.hstats{grid-template-columns:1fr 1fr}.pcards{grid-template-columns:1fr}}
+
+.human{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;background:var(--card);border:1px solid var(--accent);border-radius:16px;padding:22px;margin:0 0 18px}
+.human h3{margin:0 0 10px;font-size:1.3rem}
+.human p{margin:0 0 10px;line-height:1.65}
+.human ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.human li{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.92rem}
+.human li b{display:block;color:var(--accent);font-size:.85rem;margin-bottom:2px}
+.human .sign{color:var(--muted);font-size:.9rem;margin:0}
+@media (max-width:820px){.human{grid-template-columns:1fr}}
+
+.flowx{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin:16px 0}
+.flowx div{flex:1 1 150px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:.9rem}
+.flowx b{display:block;color:var(--accent);font-size:.85rem;margin-bottom:4px}
+.flowx small{color:var(--muted);line-height:1.45;display:block}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.split div{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--bg)}
+.split h4{margin:0 0 6px;font-size:.95rem}
+.split .tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:4px;padding:2px 7px;margin-bottom:8px}
+.tag.off{background:rgba(245,213,71,.15);color:#f5d547}.tag.on{background:rgba(111,179,242,.15);color:#6fb3f2}
+.partners{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
+.partners div{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--bg);text-align:center}
+.partners b{display:block;font-size:1.05rem}
+.partners small{color:var(--muted)}
+.access{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+.access div{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--bg);font-size:.9rem}
+.access b{display:block;margin-bottom:2px}
+.st{font-weight:700;font-size:.72rem;padding:2px 7px;border-radius:4px;white-space:nowrap}
+.st.rec{background:rgba(60,207,145,.15);color:#3ccf91}.st.fix{background:rgba(111,179,242,.15);color:#6fb3f2}.st.rev{background:rgba(245,213,71,.15);color:#f5d547}.st.blk{background:rgba(255,122,122,.15);color:#ff7a7a}
+.demohead{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
+@media (max-width:820px){.split,.partners{grid-template-columns:1fr}.access{grid-template-columns:1fr 1fr}}
+
+.mentor{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;background:var(--card);border:1px solid #3ccf91;border-radius:16px;padding:22px}
+.mentor h3{margin:0 0 10px;font-size:1.25rem}
+.mentor p{margin:0 0 10px;line-height:1.65}
+.mentor .badge{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#3ccf91;border:1px solid rgba(60,207,145,.4);border-radius:999px;padding:2px 9px;margin-bottom:10px}
+.mentor ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.mentor li{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.92rem}
+.mentor li b{display:block;color:#3ccf91;font-size:.85rem;margin-bottom:2px}
+.bridge{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.bridge div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.bridge small{display:block;color:var(--muted);font-size:.78rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.bridge b{display:block;margin-bottom:6px}
+.bridge .arrow{color:var(--accent);font-size:.9rem}
+@media (max-width:820px){.mentor,.bridge{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap wide">
+<nav>
+  <a href="index.html">Home</a>
+  <div class="dropdown" id="dd">
+    <button aria-haspopup="true" onclick="document.getElementById('dd').classList.toggle('open')">Experience &#9662;</button>
+    <div class="menu">
+      <a href="a2z.html">A2Z Media Group<span>Data Analyst · 2024 – Present</span></a>
+      <a href="almosafer.html">Almosafer (Seera Group)<span>Data Analyst · 2022 – 2024</span></a>
+      <a href="nbe.html">National Bank of Egypt<span>Customer Service Agent · 2021 – 2022</span></a>
+    </div>
+  </div>
+  <a href="index.html#work">Projects</a>
+  <a href="index.html#skills">Skills</a>
+  <a href="mailto:hassanibrahem901@gmail.com">Contact</a>
+</nav>
+
+<header class="hero">
+  <p class="eyebrow">National Bank of Egypt · Customer Service Agent (Call Centre) · 2021 – Jan 2022 · Cairo, Egypt</p>
+  <h1>Where I learned to <span>listen, explain and solve</span> for customers.</h1>
+  <p class="sub">I started my career in the call centre of Egypt's largest bank, helping customers with their accounts, cards and transactions every day. My team lead also chose me to support new joiners during their first weeks on the job.</p>
+  <div class="hstats">
+    <div><b>Daily</b><small>high volume of customer calls</small></div>
+    <div><b>High</b><small>customer satisfaction ratings</small></div>
+    <div><b>Selected</b><small>by my team lead to support new joiners</small></div>
+    <div><b>1st step</b><small>of my career path into data</small></div>
+  </div>
+  <div class="ctas">
+    <a class="btn" href="#mentor">Supporting new joiners</a>
+    <a class="btn ghost" href="#work">What I did</a>
+    <a class="btn ghost" href="cv.pdf" download>Download CV</a>
+  </div>
+</header>
+
+<div class="subnav" id="subnav">
+  <a href="#work">What I did</a><a href="#mentor">New joiners</a><a href="#skills">Skills I still use</a><a href="#contact">Contact</a>
+</div>
+
+<section id="work">
+  <h2>What I Did</h2>
+  <div class="steps">
+    <div><b>Answered customer enquiries</b><p>Handled a high volume of calls about accounts, cards, transfers and banking products.</p></div>
+    <div><b>Verified and protected</b><p>Confirmed the caller's identity before sharing any account details, following the bank's security rules.</p></div>
+    <div><b>Solved complaints</b><p>Listened to the problem, found the cause and solved it on the call, or escalated it to the right department and followed up.</p></div>
+    <div><b>Explained products</b><p>Explained banking products and fees in simple words so customers could make the right choice.</p></div>
+    <div><b>Kept accurate records</b><p>Logged every call and case clearly so the next agent or team had the full picture.</p></div>
+  </div>
+  <p style="margin-top:14px">I kept consistently high customer satisfaction ratings by staying calm, being clear, and owning each case until it was closed.</p>
+</section>
+
+<section id="mentor">
+  <h2>Supporting New Joiners</h2>
+  <div class="mentor">
+    <div>
+      <span class="badge">Chosen by my team lead</span>
+      <h3>Helping new agents through their first weeks</h3>
+      <p>My team lead nominated me to support new agents during their first weeks at NBE. I sat side by side with them on live calls so they could see how real cases are handled, and then I listened while they took calls and helped them when they needed it.</p>
+      <p>Being chosen for this showed that my team lead trusted both my work quality and the way I deal with people.</p>
+    </div>
+    <ul>
+      <li><b>Side-by-side calls</b>New joiners listened to my calls to learn the flow, the tone and the bank's procedures.</li>
+      <li><b>Live support</b>I stayed with them on their first calls and helped with difficult questions.</li>
+      <li><b>Systems and procedures</b>I showed them how to use the systems, check customer details and escalate cases correctly.</li>
+      <li><b>Feedback and confidence</b>I gave simple tips after calls so they could handle customers confidently on their own sooner.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="skills">
+  <h2>Skills I Still Use Today</h2>
+  <p class="sectlead">Customer service gave me the base for the client side of my analyst work.</p>
+  <div class="bridge">
+    <div><small>At NBE</small><b>Explaining banking products simply</b><span class="arrow">&rarr; Today:</span> explaining campaign results and dashboards to clients in clear words.</div>
+    <div><small>At NBE</small><b>Solving customer problems</b><span class="arrow">&rarr; Today:</span> finding the root cause behind numbers that do not look right.</div>
+    <div><small>At NBE</small><b>Coaching new joiners</b><span class="arrow">&rarr; Today:</span> working with media, strategy and performance teams and sharing what I find.</div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <h2>Let's talk</h2>
+  <p>Open to data and marketing analyst roles. I reply within one working day.</p>
+  <div class="ctas">
+    <a class="btn" href="mailto:hassanibrahem901@gmail.com">Email me</a>
+    <a class="btn ghost" href="https://linkedin.com/in/ibrahim-hassan-952739428" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn ghost" href="cv.pdf" download>Download CV</a>
+  </div>
+</section>
+
+<footer>© 2026 Ibrahim Mohamed Hassan</footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+document.addEventListener('click',e=>{const d=$('dd');if(!d.contains(e.target))d.classList.remove('open')});
+const links=[...document.querySelectorAll('#subnav a')];
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -55% 0px'});
+['work','mentor','skills','contact'].forEach(id=>obs.observe($(id)));
+</script>
+</body>
+</html>
